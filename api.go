@@ -25,9 +25,50 @@ type IZLogger interface {
 	Stop()
 }
 
-func New(options ...Option) IZLogger {
+func New(options ...Option) *ZLogger {
 	log := new(ZLogger)
 	log.opts = loadOptions(options...)
 	log.init()
 	return log
+}
+
+var gz IZLogger = New(WithPrintConsole(true))
+
+func SetLogger(z IZLogger) {
+	gz = z
+}
+
+func Debug(msg string, fields ...zap.Field) {
+	gz.Debug(msg, fields...)
+}
+
+func Info(msg string, fields ...zap.Field) {
+	gz.Info(msg, fields...)
+}
+
+func Warn(msg string, fields ...zap.Field) {
+	gz.Warn(msg, fields...)
+}
+
+func Error(msg string, fields ...zap.Field) {
+	gz.Error(msg, fields...)
+}
+
+func Panic(msg string, fields ...zap.Field) {
+	gz.Panic(msg, fields...)
+}
+
+func Fatal(msg string, fields ...zap.Field) {
+	gz.Fatal(msg, fields...)
+}
+func SetLevel(logLevel zapcore.Level) {
+	gz.SetLogLevel(logLevel)
+}
+
+func GetLevel() zapcore.Level {
+	return gz.GetLogLevel()
+}
+
+func Stop() {
+	gz.Stop()
 }

@@ -60,7 +60,7 @@ func (z *ZLogger) init() {
 }
 
 func (z *ZLogger) Stop() {
-
+	z.logger.Sync()
 }
 
 func (z *ZLogger) Debug(msg string, fields ...zap.Field) {
